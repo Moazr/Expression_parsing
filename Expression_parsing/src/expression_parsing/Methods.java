@@ -25,6 +25,10 @@ public class Methods {
                 && !(c >= '0' && c <= '9')
                 && !(c >= 'A' && c <= 'Z'));
     }
+    static Boolean isOperand(char c) {
+        // If the character is a digit then it must be an operand
+        return (c >= '0' && c <= '9');
+    }
 
     // method that converts infix expression to postfix expression.
     public static String infixToPostfix(String exp) {
@@ -196,6 +200,48 @@ public class Methods {
         }
         return 0;
     }
-    //test
+        // method that evaluate a prefix expression.
+    static double evaluatePrefix(String exp) {
+        // initializing empty stack for prefix 
+        try {
+            Stack<Double> PrefixStack = new Stack<Double>();
+
+            for (int i = exp.length() - 1; i >= 0; i--) {
+
+                // Push operand to Stack To convert exp[i] to digit subtract
+                if (isOperand(exp.charAt(i))) {
+                    PrefixStack.push((double) (exp.charAt(i) - '0'));
+                } else {
+
+                    // pop top 2 operands.
+                    double op1 = PrefixStack.pop();
+                    // PrefixStack.pop();
+                    double op2 = PrefixStack.pop();
+                    //    PrefixStack.pop();
+
+                    // Use switch case to operate on op1 and op2.
+                    switch (exp.charAt(i)) {
+                        case '+':
+                            PrefixStack.push(op1 + op2);
+                            break;
+                        case '-':
+                            PrefixStack.push(op1 - op2);
+                            break;
+                        case '*':
+                            PrefixStack.push(op1 * op2);
+                            break;
+                        case '/':
+                            PrefixStack.push(op1 / op2);
+                            break;
+                    }
+                }
+            }
+            return PrefixStack.peek();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "You made an exception called " + e + "\n Please try again");
+        }
+        return 0;
+    }
+
 
 }
