@@ -27,7 +27,7 @@ public class Methods {
     }
 
     // method that converts infix expression to postfix expression.
-    public static String Postfix(String exp) {
+    public static String infixToPostfix(String exp) {
         // initializing empty String for result 
         String result = new String("");
 
