@@ -15,7 +15,7 @@ import javax.swing.border.Border;
 
 public class GUI extends JFrame {
 
-    JButton convertButton , evaluateButton;
+    JButton convertButton , evaluateButton, resetButton;
     JTextField inputField, prefixField, postfixField, prefixEvaluationField, EvaluationField;
     JLabel infixLabel, postfixLabel, prefixLabel;
     JComboBox evaluateChoice;
@@ -29,6 +29,9 @@ public class GUI extends JFrame {
         convertButton = new JButton("Convert ");
         
         evaluateButton = new JButton("Evaluate ");
+        
+         resetButton = new JButton("Reset ");
+
         
         evaluateChoice = new JComboBox(Postfix_Or_Prefix);
 
@@ -69,6 +72,8 @@ public class GUI extends JFrame {
         prefixEvaluationField.setBounds(260, 223, 200, 50);
         EvaluationField.setBounds(470, 223, 200, 50);
         evaluateButton.setBounds(535, 75, 100, 50);
+        resetButton.setBounds(535, 149, 100, 50);
+
 
         convertButton.setBounds(535, 1, 100, 50);
 
@@ -83,6 +88,8 @@ public class GUI extends JFrame {
         add(evaluateButton);
         add(EvaluationField);
         add(evaluateChoice);
+        add(resetButton);
+
 
 
         convertButton.addActionListener((ActionEvent e) -> {
@@ -90,6 +97,15 @@ public class GUI extends JFrame {
             prefixField.setText(Methods.Prefix(inputField.getText()));
 
         });
+        
+        resetButton.addActionListener((ActionEvent e) -> {
+            inputField.setText("");
+            postfixField.setText("");
+            prefixField.setText("");
+            prefixEvaluationField.setText("");
+            EvaluationField.setText("");
+        });
+
         evaluateButton.addActionListener((ActionEvent e) -> {
             if (evaluateChoice.getSelectedItem().toString() == "Postfix evaluate") {
                 EvaluationField.setText(Methods.evaluatePostfix(prefixEvaluationField.getText()) + " ");
