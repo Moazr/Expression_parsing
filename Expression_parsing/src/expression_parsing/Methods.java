@@ -2,6 +2,7 @@ package expression_parsing;
 
 
 import java.util.Stack;
+import javax.swing.JOptionPane;
 
 public class Methods {
 
@@ -148,4 +149,52 @@ public class Methods {
         // Final prefix expression is present in operands stack.
         return operands.peek();
     }
+    
+    // method that evaluate a postfix expression.
+    static double evaluatePostfix(String exp) {
+
+        try {
+            // initializing empty stack for postfix
+            Stack<Double> postFix = new Stack<>();
+            int n = exp.length();
+
+            for (int i = 0; i < n; i++) {
+                if (isOperator(exp.charAt(i))) {
+                    // pop top 2 operands.
+                    double op1 = postFix.pop();
+                    double op2 = postFix.pop();
+
+                    // evaluate in reverse order, op2 operator op1.
+                    switch (exp.charAt(i)) {
+                        case '+':
+                            postFix.push(op2 + op1);
+                            break;
+
+                        case '-':
+                            postFix.push(op2 - op1);
+                            break;
+
+                        case '*':
+                            postFix.push(op2 * op1);
+                            break;
+
+                        case '/':
+                            postFix.push(op2 / op1);
+                            break;
+                    }
+
+                } else {
+                    // convert to double
+                    double operand = exp.charAt(i) - '0';
+                    postFix.push(operand);
+                }
+            }
+            // Stack at End will contain result.
+            return (postFix.pop());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "You made an exception called " + e + "\n Please try again");
+        }
+        return 0;
+    }
+
 }
