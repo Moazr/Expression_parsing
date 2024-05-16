@@ -76,7 +76,7 @@ public class Methods {
     }
 
     // method that converts infix expression to prefix expression.
-    public static String Prefix(String exp) {
+    public static String InfixtoPrefix(String exp) {
         //  initializing empty stack for operators.
         Stack<Character> operators = new Stack<Character>();
 
