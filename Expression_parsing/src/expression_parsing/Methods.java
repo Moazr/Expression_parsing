@@ -104,6 +104,7 @@ public class Methods {
                     /* Add operands and operator in form operator +
                      operand1 + operand2. */
                     String tmp = operator + operand2 + operand1;
+                       operands.push(tmp);
                 }
 
                 // Pop opening bracket from stack.
