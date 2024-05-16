@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -14,9 +15,11 @@ import javax.swing.border.Border;
 
 public class GUI extends JFrame {
 
-    JButton convertButton;
-    JTextField iF, prF, poF;
+    JButton convertButton , evaluateButton;
+    JTextField iF, prF, poF, prefixEvaluationField, EvaluationField;
     JLabel infixLabel, postfixLabel, prefixLabel;
+    JComboBox evaluateChoice;
+    String[] Postfix_Or_Prefix = {"Postfix evaluate", "Prefix evaluate"};
 
     public GUI() {
         super("Expression Parsing");
@@ -24,10 +27,18 @@ public class GUI extends JFrame {
 
         Border blackline = BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.BLACK, Color.BLACK, Color.black, Color.BLACK);
         convertButton = new JButton("Convert ");
+        
+        evaluateButton = new JButton("Evaluate ");
+        
+        evaluateChoice = new JComboBox(Postfix_Or_Prefix);
+
 
         iF = new JTextField(20);
         prF = new JTextField(20);
         poF = new JTextField(20);
+        prefixEvaluationField = new JTextField(20);
+        EvaluationField = new JTextField(20);
+
 
         infixLabel = new JLabel("  Enter the infix expression");
         postfixLabel = new JLabel("  Postfix Expression");
@@ -35,6 +46,7 @@ public class GUI extends JFrame {
 
         prF.setEditable(false);
         poF.setEditable(false);
+        EvaluationField.setEditable(false);
 
         infixLabel.setBorder(blackline);
         postfixLabel.setBorder(blackline);
@@ -53,6 +65,10 @@ public class GUI extends JFrame {
         prefixLabel.setBounds(10, 149, 220, 50);
         prF.setBounds(260, 149, 200, 50);
         // evaluationLabel.setBounds(10, 223, 220, 50);
+        evaluateChoice.setBounds(10, 223, 220, 50);
+        prefixEvaluationField.setBounds(260, 223, 200, 50);
+        EvaluationField.setBounds(470, 223, 200, 50);
+        evaluateButton.setBounds(535, 75, 100, 50);
 
         convertButton.setBounds(535, 1, 100, 50);
 
@@ -62,12 +78,25 @@ public class GUI extends JFrame {
         add(poF);
         add(prefixLabel);
         add(prF);
+        add(prefixEvaluationField);
         add(convertButton);
+        add(evaluateButton);
+        add(EvaluationField);
+        add(evaluateChoice);
+
 
         convertButton.addActionListener((ActionEvent e) -> {
             poF.setText(Methods.Postfix(iF.getText()));
             prF.setText(Methods.Prefix(iF.getText()));
 
+        });
+        evaluateButton.addActionListener((ActionEvent e) -> {
+            if (evaluateChoice.getSelectedItem().toString() == "Postfix evaluate") {
+                EvaluationField.setText(Methods.evaluatePostfix(prefixEvaluationField.getText()) + " ");
+            }
+            if (evaluateChoice.getSelectedItem().toString() == "Prefix evaluate") {
+                EvaluationField.setText(Methods.evaluatePrefix(prefixEvaluationField.getText()) + " ");
+            }
         });
 
     }
